@@ -8,14 +8,24 @@ public static class Game
     {
         while (isPlaying)
         {
-            Console.WriteLine("> ");
-            string input = Console.ReadLine();
-            Console.WriteLine("Input was: " + input);
-
+            CommandProcessor.GetCommand();
+            
+            /*
+            
+            
+            if (words.Length > 2)
+                Console.WriteLine("Too Many Words");
+            
+            foreach (string word in words)
+            {
+                Console.WriteLine(word);
+            }
+            
             if (input == "exit")
             {
                 isPlaying = false;
             }
+            */
         }
     }
 }
