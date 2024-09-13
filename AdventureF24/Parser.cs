@@ -2,19 +2,28 @@ namespace AdventureF24;
 
 public static class Parser
 {
-    public static void Parse(string input)
+    public static Command Parse(string input)
     {
-        // remove extra whitespace
+        Command command = new Command();
+
         input = RemoveWhitespace(input);
-        
-        // convert to lower case
         input = input.ToLower();
         
-        // split on space
         string[] words = input.Split(' ');
         
         // check number of words
-        
+        if (words.Length == 2)
+        {
+            command.Verb = words[0];
+            command.Noun = words[1];
+        }
+
+        if (words.Length == 1)
+        {
+            command.Verb = words[0];
+        }
+
+        return command;
     }
 
     public static string RemoveWhitespace(string input)

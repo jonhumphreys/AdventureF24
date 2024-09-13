@@ -5,13 +5,12 @@ public static class CommandProcessor
     public static void GetCommand()
     {
         // get the raw input string
-        Console.WriteLine("> ");
+        Console.Write("> ");
         string input = Console.ReadLine();
-        Console.WriteLine("Input was: " + input);
         
-        // parse out command
-        Parser.Parse(input);
+        Command command = Parser.Parse(input);
         
         // validate command
+
     }
 }
