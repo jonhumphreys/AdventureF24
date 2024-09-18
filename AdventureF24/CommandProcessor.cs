@@ -2,15 +2,12 @@ namespace AdventureF24;
 
 public static class CommandProcessor
 {
-    public static void GetCommand()
+    public static Command GetCommand()
     {
-        // get the raw input string
-        Console.Write("> ");
-        string input = Console.ReadLine();
-        
+        string input = IO.Read();
         Command command = Parser.Parse(input);
-        
-        // validate command
+        command = CommandValidator.Validate(command);
 
+        return command;
     }
 }

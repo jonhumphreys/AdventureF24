@@ -8,24 +8,15 @@ public static class Game
     {
         while (isPlaying)
         {
-            CommandProcessor.GetCommand();
-            
-            /*
-            
-            
-            if (words.Length > 2)
-                Console.WriteLine("Too Many Words");
-            
-            foreach (string word in words)
+            Command command = CommandProcessor.GetCommand();
+            if (command.IsValid)
             {
-                Console.WriteLine(word);
+                IO.Write(command.ToString());
             }
-            
-            if (input == "exit")
+            else
             {
-                isPlaying = false;
+                IO.Write("Invalid Command");
             }
-            */
         }
     }
 }
