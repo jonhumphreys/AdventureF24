@@ -7,9 +7,16 @@ public static class Parser
         Command command = new Command();
 
         input = RemoveWhitespace(input);
+        
+        Debugger.Write("After removing whitespace: [" + input + "]");
+        
         input = input.ToLower();
         
+        Debugger.Write("After converting to lowercase: [" + input + "]");
+        
         string[] words = input.Split(' ');
+        
+        Debugger.Write("Split into " + words.Length + " words");
         
         // check number of words
         if (words.Length == 2)

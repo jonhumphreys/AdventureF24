@@ -7,12 +7,19 @@ public static class CommandValidator
     {
         if (Vocabulary.IsVerb(command.Verb))
         {
+            Debugger.Write("Valid verb");
             if (Vocabulary.IsStandaloneVerb(command.Verb))
             {
-                command.IsValid = true;
+                Debugger.Write("Standalone verb");
+                if (command.HasNoNoun())
+                {
+                    Debugger.Write("Has no noun");
+                    command.IsValid = true;
+                }
             }
             else if (Vocabulary.IsNoun(command.Noun))
             {
+                Debugger.Write("Valid noun");
                 command.IsValid = true;
             }
         }

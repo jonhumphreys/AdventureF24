@@ -6,12 +6,23 @@ public static class Game
     
     public static void Play()
     {
+        Debugger.Tron();
+        
         while (isPlaying)
         {
             Command command = CommandProcessor.GetCommand();
             if (command.IsValid)
             {
                 IO.Write(command.ToString());
+
+                if (command.Verb == "tron")
+                {
+                    Debugger.Tron();
+                }
+                else if (command.Verb == "troff")
+                {
+                    Debugger.Troff();
+                }
             }
             else
             {
