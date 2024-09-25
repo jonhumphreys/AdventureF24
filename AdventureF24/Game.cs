@@ -8,6 +8,12 @@ public static class Game
     {
         Debugger.Tron();
         
+        Location location1 = new Location("Forest Clearning",
+            "An opening in the forest, filled with wildflowers.");
+        
+        Location locationHallway = new Location("Hallway",
+            "It;s a hallway");
+        
         while (isPlaying)
         {
             Command command = CommandProcessor.GetCommand();
