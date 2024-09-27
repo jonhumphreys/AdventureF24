@@ -19,4 +19,19 @@ public class Location
     {
         Connections.Add(direction, location);
     }
+
+    public bool CanMoveInDirection(string direction)
+    {
+        return Connections.ContainsKey(direction);
+    }
+
+    public Location GetLocationInDirection(string direction)
+    {
+        return Connections[direction];
+    }
+
+    public string GetDescription()
+    {
+         return Name + "\n" + Description;
+    }
 }

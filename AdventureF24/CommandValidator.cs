@@ -16,12 +16,24 @@ public static class CommandValidator
                     Debugger.Write("Has no noun");
                     command.IsValid = true;
                 }
+                else
+                {
+                    IO.Write("I don't know how to do that.");
+                }
             }
             else if (Vocabulary.IsNoun(command.Noun))
             {
                 Debugger.Write("Valid noun");
                 command.IsValid = true;
             }
+            else
+            {
+                IO.Write("I don't know the word " + command.Noun + ".");
+            }
+        }
+        else
+        {
+            IO.Write("I don't know the word " + command.Verb + ".");
         }
 
         return command;
