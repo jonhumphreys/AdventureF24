@@ -6,6 +6,7 @@ public static class CommandHandler
         new Dictionary<string, Action<Command>>()
         {
             {"go", Move},
+            {"take", Take},
             {"tron", Tron},
             {"troff", Troff},
         };
@@ -26,6 +27,11 @@ public static class CommandHandler
     private static void Move(Command command)
     {
         Player.Move(command);
+    }
+    
+    private static void Take(Command command)
+    {
+        Player.Take(command);
     }
     
     private static void Tron(Command command)

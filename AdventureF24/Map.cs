@@ -26,5 +26,11 @@ public static class Map
         treasureRoom.AddConnection("south", storageRoom);
         
         StartLocation = entranceHall;
+
+        Item key = new Item("Key", "An old, rusty, comically oversized key.", "There is a key here.");
+        entranceHall.AddItem(key);
+        
+        Item beer = new Item("Beer", "Beer's beer.", "There is a beer here.");
+        entranceHall.AddItem(beer);
     }
 }

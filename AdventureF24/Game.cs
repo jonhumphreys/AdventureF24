@@ -21,7 +21,6 @@ public static class Game
 
     private static void Initialize()
     {
-        Debugger.Tron();
         Map.Initialize();
         Player.Initialize();
     }

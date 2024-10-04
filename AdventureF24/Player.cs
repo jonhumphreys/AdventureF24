@@ -3,6 +3,7 @@ namespace AdventureF24;
 public static class Player
 {
     private static Location currentLocation;
+    public static List<Item> Inventory;
 
     public static void Initialize()
     {
@@ -20,6 +21,28 @@ public static class Player
         else
         {
             IO.Write("Can't go that way.");
+        }
+    }
+
+    public static void Take(Command command)
+    {
+        IO.Write("taking " + command.Noun);
+
+        Item item = currentLocation.FindItem(command.Noun);
+
+        if (item == null)
+        {
+            IO.Write("There is no " + command.Noun + " here.");
+        }
+        else if (!item.IsTakeable)
+        {
+            IO.Write("The " + command.Noun + " cannot be taken.");
+        }
+        else
+        {
+            Inventory.Add(item);
+            currentLocation.RemoveItem(item);
+            IO.Write("You take the " + command.Noun + ".");
         }
     }
 }
