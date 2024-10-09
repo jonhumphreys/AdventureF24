@@ -27,10 +27,10 @@ public static class Map
         
         StartLocation = entranceHall;
 
-        Item key = new Item("Key", "An old, rusty, comically oversized key.", "There is a key here.");
+        Item key = new Item("Key", "An old, rusty, comically oversized key.", "There is a key poking out from the dust.");
         entranceHall.AddItem(key);
         
-        Item beer = new Item("Beer", "Beer's beer.", "There is a beer here.");
+        Item beer = new Item("Beer", "Beer's beer.", "There is a beer sitting on the ground.");
         entranceHall.AddItem(beer);
     }
 }

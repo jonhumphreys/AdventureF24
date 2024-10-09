@@ -9,8 +9,15 @@ public static class CommandHandler
             {"take", Take},
             {"tron", Tron},
             {"troff", Troff},
+            {"look", Look},
+            {"drop", Drop},
         };
-    
+
+    private static void Drop(Command command)
+    {
+        Player.Drop(command);
+    }
+
     public static void Handle(Command command)
     {
         if (commandMap.ContainsKey(command.Verb))
@@ -22,6 +29,11 @@ public static class CommandHandler
         {
             IO.Write("I don't know how to do that.");
         }
+    }
+
+    private static void Look(Command command)
+    {
+        IO.Write(Player.GetLocationDescription());
     }
 
     private static void Move(Command command)
