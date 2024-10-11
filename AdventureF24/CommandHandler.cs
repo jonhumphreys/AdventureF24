@@ -11,7 +11,13 @@ public static class CommandHandler
             {"troff", Troff},
             {"look", Look},
             {"drop", Drop},
+            {"inventory", Inventory},
         };
+
+    private static void Inventory(Command command)
+    {
+        Player.ShowInventory();
+    }
 
     private static void Drop(Command command)
     {

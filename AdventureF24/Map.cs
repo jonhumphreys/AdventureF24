@@ -32,5 +32,8 @@ public static class Map
         
         Item beer = new Item("Beer", "Beer's beer.", "There is a beer sitting on the ground.");
         entranceHall.AddItem(beer);
+        
+        Item gator = new Item("Alligator", "Alligator's beer.", "There is a smiling alligator.");
+        entranceHall.AddItem(gator);
     }
 }

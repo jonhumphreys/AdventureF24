@@ -71,4 +71,23 @@ public static class Player
         // else
         // print out you are dumb
     }
+
+    public static void ShowInventory()
+    {
+        if (Inventory.Count == 0)
+        {
+            IO.Write("You are empty-handed.");
+        }
+        else
+        {
+            IO.Write("You are carrying:");
+            foreach (Item item in Inventory)
+            {
+                string article = SemanticTools.CreateArticle(item.Name);
+                IO.Write("  " + article + " " + item.Name);
+            }
+        }
+    }
+
+
 }
