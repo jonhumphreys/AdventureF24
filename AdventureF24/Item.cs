@@ -2,7 +2,8 @@ namespace AdventureF24;
 
 public class Item
 {
-    public string Name { get; }
+    public string Name { get; set; }
+    
     // function
     public string Description { get; }
     public string InitialLocationDescription { get; }
@@ -22,7 +23,8 @@ public class Item
         }
     }
     
-    public Item(string name, string description, string initialLocationDescription, bool isTakeable = true)
+    public Item(string name, string description, string initialLocationDescription, 
+        bool isTakeable = true)
     {
         Name = name;
         Description = description;
