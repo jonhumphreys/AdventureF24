@@ -1,6 +1,6 @@
 namespace AdventureF24;
 
-public static class CommandHandler
+public class ExplorationCommandHandler : ICommandHandler
 {
     private static Dictionary<string, Action<Command>> commandMap =
         new Dictionary<string, Action<Command>>()
@@ -14,6 +14,14 @@ public static class CommandHandler
             {"inventory", Inventory},
         };
 
+    private static BaseCommandHandler baseHandler =
+        new BaseCommandHandler(commandMap);
+    
+    public void Handle(Command command)
+    {
+        baseHandler.Handle(command);
+    }
+    
     private static void Inventory(Command command)
     {
         Player.ShowInventory();
@@ -23,20 +31,7 @@ public static class CommandHandler
     {
         Player.Drop(command);
     }
-
-    public static void Handle(Command command)
-    {
-        if (commandMap.ContainsKey(command.Verb))
-        {
-            Action<Command> action = commandMap[command.Verb];
-            action.Invoke(command);
-        }
-        else
-        {
-            IO.Write("I don't know how to do that.");
-        }
-    }
-
+    
     private static void Look(Command command)
     {
         IO.Write(Player.GetLocationDescription());

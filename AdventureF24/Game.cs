@@ -14,7 +14,7 @@ public static class Game
             if (command.IsValid)
             {
                 Debugger.Write(command.ToString());
-                CommandHandler.Handle(command);
+                //CommandHandler.Handle(command);
             }
         }
     }
@@ -23,5 +23,7 @@ public static class Game
     {
         Map.Initialize();
         Player.Initialize();
+        States.Initialize();
+        States.ChangeState(StateType.Snoozing);
     }
 }
