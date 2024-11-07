@@ -14,7 +14,7 @@ public static class Game
             if (command.IsValid)
             {
                 Debugger.Write(command.ToString());
-                //CommandHandler.Handle(command);
+                CommandHandler.Handle(command);
             }
         }
     }

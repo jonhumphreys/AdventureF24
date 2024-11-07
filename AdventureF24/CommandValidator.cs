@@ -1,22 +1,17 @@
-using System.Windows.Input;
-
 namespace AdventureF24;
 
 public static class CommandValidator
 {
-    private static Dictionary<StateType, ICommandValidator> validators =
-        new Dictionary<StateType, ICommandValidator>()
-        {
-            { StateType.Exploring, new ExplorationCommandValidator()},
-            { StateType.Conversation, new ConversationCommandValidator() }
-        };
-    
     public static Command Validate(Command command)
     {
-        if (validators.ContainsKey(States.GetCurrentState()))
+        switch (States.GetCurrentState())
         {
-            ICommandValidator validator = validators[States.GetCurrentState()];
-            return validator.Validate(command);
+            case StateType.Exploring:
+                return ExplorationCommandValidator.Validate(command);
+                break;
+            case StateType.Conversation:
+                return ConversationCommandValidator.Validate(command);
+                break;
         }
         return new Command();
     }

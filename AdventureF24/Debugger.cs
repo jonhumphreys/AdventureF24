@@ -8,19 +8,21 @@ public static class Debugger
     {
         if (isActive)
         {
-            IO.Write(message);
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            IO.WriteLine(message);
+            Console.ResetColor();
         }
     }
 
     public static void Tron()
     {
         isActive = true;
-        IO.Write("Debugging Enabled");
+        IO.WriteLine("Debugging Enabled");
     }
     
     public static void Troff()
     {
         isActive = false;
-        IO.Write("Debugging Disabled");
+        IO.WriteLine("Debugging Disabled");
     }
 }

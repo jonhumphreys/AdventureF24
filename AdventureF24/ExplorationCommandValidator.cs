@@ -1,8 +1,8 @@
 namespace AdventureF24;
 
-public class ExplorationCommandValidator : ICommandValidator
+public static class ExplorationCommandValidator
 {
-    public Command Validate(Command command)
+    public static Command Validate(Command command)
     {
         if (Vocabulary.IsVerb(command.Verb))
         {
@@ -17,7 +17,7 @@ public class ExplorationCommandValidator : ICommandValidator
                 }
                 else
                 {
-                    IO.Write("I don't know how to do that.");
+                    IO.WriteLine("I don't know how to do that.");
                 }
             }
             else if (Vocabulary.IsNoun(command.Noun))
@@ -27,12 +27,12 @@ public class ExplorationCommandValidator : ICommandValidator
             }
             else
             {
-                IO.Write("I don't know the word " + command.Noun + ".");
+                IO.WriteLine("I don't know the word " + command.Noun + ".");
             }
         }
         else
         {
-            IO.Write("I don't know the word " + command.Verb + ".");
+            IO.WriteLine("I don't know the word " + command.Verb + ".");
         }
 
         return command;

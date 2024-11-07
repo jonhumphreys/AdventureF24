@@ -1,6 +1,6 @@
 namespace AdventureF24;
 
-public class ConversationCommandHandler : ICommandHandler
+public static class ConversationCommandHandler
 {
     private static Dictionary<string, Action<Command>> commandMap =
         new Dictionary<string, Action<Command>>()
@@ -10,12 +10,17 @@ public class ConversationCommandHandler : ICommandHandler
             {"leave", Leave},
         };
     
-    private static BaseCommandHandler baseHandler =
-        new BaseCommandHandler(commandMap);
-    
-    public void Handle(Command command)
+    public static void Handle(Command command)
     {
-        baseHandler.Handle(command);
+        if (commandMap.ContainsKey(command.Verb))
+        {
+            Action<Command> action = commandMap[command.Verb];
+            action.Invoke(command);
+        }
+        else
+        {
+            IO.WriteLine("I don't understand that command.");
+        }
     }
 
     private static void Yes(Command command)
@@ -30,6 +35,7 @@ public class ConversationCommandHandler : ICommandHandler
     
     private static void Leave(Command command)
     {
-        Debugger.Write("Handling leave command");
+        Debugger.Write("Trying to switch to exploration state");
+        States.ChangeState(StateType.Exploring);
     }
 }

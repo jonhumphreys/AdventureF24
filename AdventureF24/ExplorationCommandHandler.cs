@@ -1,6 +1,6 @@
 namespace AdventureF24;
 
-public class ExplorationCommandHandler : ICommandHandler
+public static class ExplorationCommandHandler
 {
     private static Dictionary<string, Action<Command>> commandMap =
         new Dictionary<string, Action<Command>>()
@@ -12,14 +12,26 @@ public class ExplorationCommandHandler : ICommandHandler
             {"look", Look},
             {"drop", Drop},
             {"inventory", Inventory},
+            {"talk", EnterConversationState},
         };
 
-    private static BaseCommandHandler baseHandler =
-        new BaseCommandHandler(commandMap);
-    
-    public void Handle(Command command)
+    private static void EnterConversationState(Command command)
     {
-        baseHandler.Handle(command);
+        Debugger.Write("Trying to enter conversation state");
+        States.ChangeState(StateType.Conversation);
+    }
+
+    public static void Handle(Command command)
+    {
+        if (commandMap.ContainsKey(command.Verb))
+        {
+            Action<Command> action = commandMap[command.Verb];
+            action.Invoke(command);
+        }
+        else
+        {
+            IO.WriteLine("I don't understand that command.");
+        }
     }
     
     private static void Inventory(Command command)
@@ -34,7 +46,7 @@ public class ExplorationCommandHandler : ICommandHandler
     
     private static void Look(Command command)
     {
-        IO.Write(Player.GetLocationDescription());
+        IO.WriteLine(Player.GetLocationDescription());
     }
 
     private static void Move(Command command)

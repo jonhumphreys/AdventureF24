@@ -1,8 +1,8 @@
 namespace AdventureF24;
 
-public class ConversationCommandValidator  : ICommandValidator
+public static class ConversationCommandValidator
 {
-    public Command Validate(Command command)
+    public static Command Validate(Command command)
     {
         if (command.Verb == "y" || command.Verb == "n" || command.Verb == "leave")
         {

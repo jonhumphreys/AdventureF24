@@ -38,5 +38,6 @@ public static class States
         currentState.Deactivate();
         currentState = states[type];
         currentState.Activate();
+        Debugger.Write("Entering state: " + currentState.Type);
     }
 }
