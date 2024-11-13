@@ -72,4 +72,12 @@ public class Location
     {
         Items.Add(item);
     }
+
+    public void RemoveConnection(string direction)
+    {
+        if (Connections.ContainsKey(direction))
+        {
+            Connections.Remove(direction);
+        }
+    }
 }

@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace AdventureF24;
 
 public static class Player
@@ -65,11 +67,6 @@ public static class Player
             currentLocation.DropItem(item);
             IO.WriteLine($"You drop the {item.Name}.");
         }
-        // remove from inventory list
-        // put item at location
-        // print out text that we dropped the item
-        // else
-        // print out you are dumb
     }
 
     public static void ShowInventory()
@@ -90,4 +87,24 @@ public static class Player
     }
 
 
+    public static void Use(Command command)
+    {
+        if (command.Noun == "beer")
+        {
+            Conditions.ChangeCondition(ConditionType.IsDrunk, true);
+        }
+    }
+
+    public static void MoveToLocation(string locationName)
+    {
+        Location? newLocation = Map.GetLocationByName(locationName);
+        
+        if (newLocation == null)
+        {
+            IO.WriteLine("There is no location named " + locationName + ".");
+            return;
+        }
+        currentLocation = newLocation;
+        IO.WriteLine(currentLocation.GetDescription());
+    }
 }

@@ -3,7 +3,7 @@ namespace AdventureF24;
 public static class Vocabulary
 {
     public static List<string> notStandaloneVerbs = new List<string>()
-        { "eat", "go", "take", "drop"};
+        { "eat", "go", "take", "drop", "use"};
 
     public static List<string> standaloneVerbs = new List<string>()
         { "look", "inventory", "exit", "tron", "troff", "talk" };

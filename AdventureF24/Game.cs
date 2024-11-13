@@ -25,5 +25,6 @@ public static class Game
         Player.Initialize();
         States.Initialize();
         States.ChangeState(StateType.Snoozing);
+        Conditions.Initialize();
     }
 }

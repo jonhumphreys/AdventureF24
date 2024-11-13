@@ -11,9 +11,15 @@ public static class ExplorationCommandHandler
             {"troff", Troff},
             {"look", Look},
             {"drop", Drop},
+            {"use", Use},
             {"inventory", Inventory},
             {"talk", EnterConversationState},
         };
+
+    private static void Use(Command command)
+    {
+        Player.Use(command);
+    }
 
     private static void EnterConversationState(Command command)
     {

@@ -9,6 +9,15 @@ public static class Conditions
     {
         Condition isDrunked = new Condition(ConditionType.IsDrunk);
         isDrunked.AddToActivateCallList(ConditionActions.WriteOutput("Hic!"));
+        isDrunked.AddToActivateCallList(
+            ConditionActions.AddMapConnection(
+                "Entrance Hall", "west", 
+                "Treasure Room"));
+        isDrunked.AddToActivateCallList(
+            ConditionActions.RemoveMapConnection(
+                "Entrance Hall", "north"));
+        isDrunked.AddToActivateCallList(ConditionActions.MovePlayerToLocation(
+            "Hole"));
         AddCondition(isDrunked);
     }
 

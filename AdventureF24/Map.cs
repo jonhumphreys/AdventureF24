@@ -4,17 +4,20 @@ public static class Map
 {
     public static Location StartLocation;
     
+    private static Dictionary<string, Location> nameToLocation = 
+        new Dictionary<string, Location>();
+    
     public static void Initialize()
     {
-        Location entranceHall = new Location("Entrance Hall",
+        Location entranceHall = AddLocation("Entrance Hall",
             "A grand hall.  Doors lead north and east.");
-        Location library = new Location("Library",
+        Location library = AddLocation("Library",
             "Books and more books.  A door leads south.");
-        Location storageRoom = new Location("Storage Room",
+        Location storageRoom = AddLocation("Storage Room",
              "Dusty and full of debris.  Doors lead west and north.");
-        Location treasureRoom = new Location("Treasure Room",
+        Location treasureRoom = AddLocation("Treasure Room",
              "Dimly lit, a chest sits in the corner.  There is an exit to the south.");
-        Location hole = new Location("Hole",
+        Location hole = AddLocation("Hole",
             "Maybe you shouldn't have come down here.  There's no way out.");
         
         entranceHall.AddConnection("north", library);
@@ -35,5 +38,59 @@ public static class Map
         
         Item gator = new Item("Alligator", "Alligator's beer.", "There is a smiling alligator.");
         entranceHall.AddItem(gator);
+    }
+
+    private static Location AddLocation(string name, string description)
+    {
+        Location location = new Location(name, description);
+        nameToLocation.Add(name, location);
+        
+        return location;
+    }
+
+    public static void AddConnection(string startLocation,
+        string direction, string endLocation)
+    {
+        Location? start = FindLocation(startLocation);
+        Location? end = FindLocation(endLocation);
+
+        if (start == null || end == null)
+        {
+            IO.Error("Could not find location: " + 
+                     startLocation + " and/or " + endLocation);
+            return;
+        }
+
+        start.AddConnection(direction, end);
+    }
+
+    public static void RemoveConnection(string locationName, string direction)
+    {
+        Location? location = FindLocation(locationName);
+
+        if (location == null)
+            return;
+        
+        location.RemoveConnection(direction);
+    }
+
+    public static Location? FindLocation(string location)
+    {   
+        if (nameToLocation.ContainsKey(location))
+            return nameToLocation[location];
+        return null;
+    }
+
+    public static bool DoesLocationExist(string locationName)
+    {
+        if (FindLocation(locationName) != null)
+            return true;
+        return false;
+    }
+
+    public static Location? GetLocationByName(string locationName)
+    {
+        Location? location = FindLocation(locationName);
+        return location;
     }
 }
