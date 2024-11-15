@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace AdventureF24;
 
 public static class ConditionActions
@@ -23,15 +25,28 @@ public static class ConditionActions
         return () => Player.MoveToLocation(locationName);
     }
     
+    public static Action AddItemToInventory(ItemType itemType)
+    {
+        return () => Player.AddToInventory(itemType);
+    }
+    
+    public static Action RemoveItemFromInventory(ItemType itemType)
+    {
+        return () => Player.RemoveItemFromInventory(itemType);
+    }
+
+    public static Action AddItemToLocation(ItemType itemType, string locationName)
+    {
+        return () => Map.AddItem(itemType, locationName);
+    }
+    
+    public static Action RemoveItemFromLocation(ItemType itemType, string locationName)
+    {
+        return () => Map.RemoveItem(itemType, locationName);
+    }
+    
+    
     // if player dies
-    
-    // add item to inventory
-    
-    // add item to room
-    
-    // remove item from inventory
-    
-    // remove item from room
     
     // spawn mob
     

@@ -15,6 +15,8 @@ public static class Game
             {
                 Debugger.Write(command.ToString());
                 CommandHandler.Handle(command);
+                if (command.Verb == "exit")
+                    isPlaying = false;
             }
         }
     }
@@ -22,9 +24,9 @@ public static class Game
     private static void Initialize()
     {
         Map.Initialize();
+        Items.Initialize();
         Player.Initialize();
         States.Initialize();
-        States.ChangeState(StateType.Snoozing);
         Conditions.Initialize();
     }
 }

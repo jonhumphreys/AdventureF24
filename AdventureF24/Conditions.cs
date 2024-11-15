@@ -16,8 +16,7 @@ public static class Conditions
         isDrunked.AddToActivateCallList(
             ConditionActions.RemoveMapConnection(
                 "Entrance Hall", "north"));
-        isDrunked.AddToActivateCallList(ConditionActions.MovePlayerToLocation(
-            "Hole"));
+        isDrunked.AddToActivateCallList(ConditionActions.MovePlayerToLocation("Hole"));
         AddCondition(isDrunked);
     }
 

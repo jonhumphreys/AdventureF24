@@ -62,6 +62,14 @@ public class Location
 
         return null;
     }
+    
+    public void RemoveItem(ItemType itemType)
+    {
+        Item? item = FindItem(itemType.ToString());
+        if (item == null)
+            return;
+        Items.Remove(item);
+    }
 
     public void RemoveItem(Item item)
     {

@@ -23,14 +23,14 @@ public class Item
         }
     }
     
-    public Item(string name, string description, string initialLocationDescription, 
+    public Item(ItemType itemType, string description, string initialLocationDescription, 
         bool isTakeable = true)
     {
-        Name = name;
+        Name = itemType.ToString();
         Description = description;
         InitialLocationDescription = initialLocationDescription;
         IsTakeable = isTakeable;
-        Vocabulary.AddNoun(name);
+        Vocabulary.AddNoun(Name);
     }
 
     public void Pickup()

@@ -29,15 +29,6 @@ public static class Map
         treasureRoom.AddConnection("south", storageRoom);
         
         StartLocation = entranceHall;
-
-        Item key = new Item("Key", "An old, rusty, comically oversized key.", "There is a key poking out from the dust.");
-        entranceHall.AddItem(key);
-        
-        Item beer = new Item("Beer", "Beer's beer.", "There is a beer sitting on the ground.");
-        entranceHall.AddItem(beer);
-        
-        Item gator = new Item("Alligator", "Alligator's beer.", "There is a smiling alligator.");
-        entranceHall.AddItem(gator);
     }
 
     private static Location AddLocation(string name, string description)
@@ -92,5 +83,36 @@ public static class Map
     {
         Location? location = FindLocation(locationName);
         return location;
+    }
+
+    public static void AddItem(ItemType itemType, string roomName)
+    {
+        Item? item = Items.FindItem(itemType);
+        AddItem(item, roomName);
+    }
+
+    public static void AddItem(Item? item, string roomName)
+    {
+        if (item == null)
+            return;
+        
+        Location? location = GetLocationByName(roomName);
+        if (location == null)
+            return;
+        
+        AddItemToLocation(item, location);
+    }
+
+    private static void AddItemToLocation(Item item, Location location) 
+    {
+        location.AddItem(item);
+    }
+
+    public static void RemoveItem(ItemType itemType, string locationName)
+    {
+        Location? location = GetLocationByName(locationName);
+        if (location == null)
+            return;
+        location.RemoveItem(itemType);
     }
 }
