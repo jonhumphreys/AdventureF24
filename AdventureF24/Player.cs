@@ -17,8 +17,20 @@ public static class Player
     {
         if (currentLocation.CanMoveInDirection(command.Noun))
         {
+            if (currentLocation.Name == "Entrance Hall" && command.Noun == "east"
+                                                        && Conditions.IsFalse(ConditionType.HasKey))
+            {
+                IO.WriteLine("You need the key to go there.");
+                return;
+            }
+            
             currentLocation = currentLocation.GetLocationInDirection(command.Noun);
             IO.WriteLine(currentLocation.GetDescription());
+
+            if (currentLocation.Name == "Mouse Hole")
+            {
+                Conditions.ChangeCondition(ConditionType.WonGame, true);
+            }
         }
         else
         {
@@ -28,8 +40,6 @@ public static class Player
 
     public static void Take(Command command)
     {
-        IO.WriteLine("taking " + command.Noun);
-
         Item item = currentLocation.FindItem(command.Noun);
 
         if (item == null)
@@ -46,6 +56,11 @@ public static class Player
             item.Pickup();
             currentLocation.RemoveItem(item);
             IO.WriteLine("You take the " + command.Noun + ".");
+
+            if (item.Name == "key")
+            {
+                Conditions.ChangeCondition(ConditionType.HasKey, true);
+            }
         }
     }
 
@@ -66,6 +81,11 @@ public static class Player
             Inventory.Remove(item);
             currentLocation.DropItem(item);
             IO.WriteLine($"You drop the {item.Name}.");
+
+            if (item.Name == "key")
+            {
+                Conditions.ChangeCondition(ConditionType.HasKey, false);
+            }
         }
     }
 
@@ -122,5 +142,14 @@ public static class Player
         if (item == null)
             return;
         Inventory.Remove(item);
+    }
+
+    public static void Eat(Command command)
+    {
+        if (command.Noun == "cake")
+        {
+            RemoveItemFromInventory(ItemType.cake);
+            Conditions.ChangeCondition(ConditionType.IsTiny, true);
+        }
     }
 }

@@ -14,7 +14,13 @@ public static class ExplorationCommandHandler
             {"use", Use},
             {"inventory", Inventory},
             {"talk", EnterConversationState},
+            {"eat", Eat},
         };
+    
+    private static void Eat(Command command)
+    {
+        Player.Eat(command);
+    }
 
     private static void Use(Command command)
     {

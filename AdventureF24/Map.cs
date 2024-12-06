@@ -1,109 +1,134 @@
+using System.Text.Json;
+
 namespace AdventureF24;
+
 
 public static class Map
 {
     public static Location StartLocation;
-    
-    private static Dictionary<string, Location> nameToLocation = 
-        new Dictionary<string, Location>();
+    private static Dictionary<string, Location> nameToLocation = new Dictionary<string, Location>();
     
     public static void Initialize()
     {
-        Location entranceHall = AddLocation("Entrance Hall",
-            "A grand hall.  Doors lead north and east.");
-        Location library = AddLocation("Library",
-            "Books and more books.  A door leads south.");
-        Location storageRoom = AddLocation("Storage Room",
-             "Dusty and full of debris.  Doors lead west and north.");
-        Location treasureRoom = AddLocation("Treasure Room",
-             "Dimly lit, a chest sits in the corner.  There is an exit to the south.");
-        Location hole = AddLocation("Hole",
-            "Maybe you shouldn't have come down here.  There's no way out.");
+        string path = Path.Combine(Environment.CurrentDirectory, "Locations.json");
+        string rawText = File.ReadAllText(path);
         
-        entranceHall.AddConnection("north", library);
-        entranceHall.AddConnection("east", storageRoom);
-        entranceHall.AddConnection("down", hole);
-        library.AddConnection("south", entranceHall);
-        storageRoom.AddConnection("north", treasureRoom);
-        storageRoom.AddConnection("west", entranceHall);
-        treasureRoom.AddConnection("south", storageRoom);
-        
-        StartLocation = entranceHall;
-    }
+        // convert the text to ItemsJsonData
+        MapJsonData? data = JsonSerializer.Deserialize<MapJsonData>(rawText);
 
-    private static Location AddLocation(string name, string description)
-    {
-        Location location = new Location(name, description);
-        nameToLocation.Add(name, location);
-        
-        return location;
-    }
-
-    public static void AddConnection(string startLocation,
-        string direction, string endLocation)
-    {
-        Location? start = FindLocation(startLocation);
-        Location? end = FindLocation(endLocation);
-
-        if (start == null || end == null)
+        // Add all locations
+        Dictionary<string, Location> locations = new Dictionary<string, Location>();
+        foreach (LocationJsonData location in data.Locations)
         {
-            IO.Error("Could not find location: " + 
-                     startLocation + " and/or " + endLocation);
-            return;
+            Location newLocation = AddLocation(location.Name, location.Description);
+            locations.Add(location.Name, newLocation);
+        }
+        
+        // Create all connections
+        foreach (LocationJsonData location in data.Locations)
+        {
+            Location currentLocation = locations[location.Name];
+            foreach (KeyValuePair<string, string> connection in location.Connections)
+            {
+                string direction = connection.Key.ToLower();
+                string destination = connection.Value;
+
+                if (locations.TryGetValue(destination, out Location connectionedLocation))
+                {
+                    currentLocation.AddConnection(direction, connectionedLocation);
+                }
+                else
+                {
+                    IO.Error("Location " + location.Name + " does not exist.");
+                }
+            }
         }
 
+        if (locations.TryGetValue(data.StartLocation, out Location startLocation))
+        {
+            StartLocation = startLocation;
+        }
+        else
+        {
+            IO.Error("Location");
+        }
+      
+    }
+
+    public static void AddConnection(string startLocationName, string direction, string endLocationName)
+    {
+        Location? start = FindLocation(startLocationName);
+        Location? end = FindLocation(endLocationName);
+        if (start == null || end == null)
+        {
+            IO.Error("Could not find location: " +  startLocationName + 
+                     "and/or " + endLocationName + ".");
+            return;
+        }
+        
         start.AddConnection(direction, end);
     }
 
     public static void RemoveConnection(string locationName, string direction)
     {
         Location? location = FindLocation(locationName);
-
         if (location == null)
+        {
+            IO.Error("Could not find location: " + locationName + ".");
             return;
-        
+        }
+
         location.RemoveConnection(direction);
     }
 
-    public static Location? FindLocation(string location)
-    {   
-        if (nameToLocation.ContainsKey(location))
-            return nameToLocation[location];
+    public static Location? FindLocation(string locationName)
+    {
+        if (nameToLocation.ContainsKey(locationName))
+            return nameToLocation[locationName];
         return null;
+    }
+
+    private static Location AddLocation(string name, string description)
+    {
+        Location location = new Location(name, description);
+        nameToLocation.Add(name, location);
+
+        return location;
     }
 
     public static bool DoesLocationExist(string locationName)
     {
         if (FindLocation(locationName) != null)
+        {
             return true;
+        }
+
         return false;
     }
 
-    public static Location? GetLocationByName(string locationName)
+    public static Location GetLocationByName(string locationName)
     {
         Location? location = FindLocation(locationName);
         return location;
     }
 
-    public static void AddItem(ItemType itemType, string roomName)
+    public static void AddItem(ItemType itemType, string locationName)
     {
         Item? item = Items.FindItem(itemType);
-        AddItem(item, roomName);
+        AddItem(item, locationName);
     }
 
     public static void AddItem(Item? item, string roomName)
     {
-        if (item == null)
-            return;
-        
         Location? location = GetLocationByName(roomName);
-        if (location == null)
+        if (location == null || item == null)
+        {
             return;
-        
+        }
         AddItemToLocation(item, location);
     }
 
-    private static void AddItemToLocation(Item item, Location location) 
+    private static void AddItemToLocation(Item item, Location location)
     {
         location.AddItem(item);
     }
@@ -112,7 +137,9 @@ public static class Map
     {
         Location? location = GetLocationByName(locationName);
         if (location == null)
+        {
             return;
+        }
         location.RemoveItem(itemType);
     }
 }

@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace AdventureF24;
 
 public static class Game
@@ -29,4 +31,11 @@ public static class Game
         States.Initialize();
         Conditions.Initialize();
     }
+
+    public static void WinGame()
+    {
+        IO.WriteLine("You won the game mo fo.");
+        isPlaying = false;
+    }
+    
 }

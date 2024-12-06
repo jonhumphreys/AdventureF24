@@ -1,0 +1,41 @@
+{
+  "Locations": [
+    {
+      "Name": "Entrance Hall",
+      "Description": "A grand hall. Doors lead north and east.",
+      "Connections": {
+        "north": "Library",
+        "east": "Storage Room",
+        "down": "Hole"
+      }
+    },
+    {
+      "Name": "Library",
+      "Description": "Books and more books. A door leads south.",
+      "Connections": {
+        "south": "Entrance Hall"
+      }
+    },
+    {
+      "Name": "Storage Room",
+      "Description": "Dusty and full of debris. Doors lead west and north.",
+      "Connections": {
+        "north": "Treasure Room",
+        "west": "Entrance Hall"
+      }
+    },
+    {
+      "Name": "Treasure Room",
+      "Description": "Dimly lit, a chest sits in the corner. There is an exit to the south.",
+      "Connections": {
+        "south": "Storage Room"
+      }
+    },
+    {
+      "Name": "Hole",
+      "Description": "Maybe you shouldn't have come down here. There's no way out.",
+      "Connections": {}
+    }
+  ],
+  "StartLocation": "Entrance Hall"
+}

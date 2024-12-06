@@ -44,7 +44,11 @@ public static class ConditionActions
     {
         return () => Map.RemoveItem(itemType, locationName);
     }
-    
+
+    public static Action WinGame()
+    {
+        return () => Game.WinGame();
+    }
     
     // if player dies
     

@@ -1,0 +1,39 @@
+{
+  "Items": [
+    {
+      "ItemType": "lantern",
+      "Description": "An old lantern. It might still work.",
+      "InitialLocationText": "A lantern rests on a table.",
+      "IsTakeable": true,
+      "Location": "Library"
+    },
+    {
+      "ItemType": "key",
+      "Description": "A small key, likely for a chest.",
+      "InitialLocationText": "You see a key on a shelf.",
+      "IsTakeable": true,
+      "Location": "Entrance Hall"
+    },
+    {
+      "ItemType": "chest",
+      "Description": "A large, locked chest. It looks like it could contain something valuable.",
+      "InitialLocationText": "",
+      "IsTakeable": false,
+      "Location": "Treasure Room"
+    },
+    {
+      "ItemType": "egg",
+      "Description": "A clockwork egg.",
+      "InitialLocationText": "There is a clockwork egg in the corner.",
+      "IsTakeable": true,
+      "Location": "Entrance Hall"
+    },
+    {
+      "ItemType": "sword",
+      "Description": "An old sword.",
+      "InitialLocationText": "There is a sword on the ground.",
+      "IsTakeable": true,
+      "Location": "Storage Room"
+    }
+  ]
+}

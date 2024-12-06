@@ -6,4 +6,6 @@ public enum ConditionType
     IsInRoomWithChest,
     IsDrunk,
     IsInBedWithChest,
+    IsTiny,
+    WonGame,
 }

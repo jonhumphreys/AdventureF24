@@ -7,5 +7,8 @@ public enum ItemType
     sword,
     beer,
     egg,
-    gem
+    gem,
+    crumbs,
+    cake,
+    chest
 }
